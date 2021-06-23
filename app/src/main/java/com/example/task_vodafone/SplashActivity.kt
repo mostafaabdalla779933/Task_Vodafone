@@ -17,19 +17,12 @@ class SplashActivity : AppCompatActivity() {
 
 
         job = CoroutineScope(Dispatchers.Main).launch {
-
             delay(1000)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-
         }
-
-
     }
-
-
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
-
     }
 }
