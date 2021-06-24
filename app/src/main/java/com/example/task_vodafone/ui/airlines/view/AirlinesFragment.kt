@@ -50,10 +50,12 @@ class AirlinesFragment : Fragment() {
         viewModel.airlineList.observe(viewLifecycleOwner){
 
             myAdapter.submitList(it)
+            myAdapter.notifyDataSetChanged()
         }
 
         viewModel.airlineListFilter.observe(viewLifecycleOwner){
             myAdapter.submitList(it)
+            myAdapter.notifyDataSetChanged()
         }
 
 

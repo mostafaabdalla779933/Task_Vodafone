@@ -33,6 +33,7 @@ class AirLineAdapte( val onclick : (AirLineEntity) -> Unit) : ListAdapter<AirLin
         holder.itemView.tv_name.text = getItem(position).name
 
         holder.itemView.setOnClickListener {
+
             onclick(this.currentList.get(position))
         }
     }

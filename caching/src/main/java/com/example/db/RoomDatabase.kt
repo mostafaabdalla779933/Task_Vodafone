@@ -5,6 +5,6 @@ import androidx.room.RoomDatabase
 import com.example.entity.AirLineEntity
 
 @Database(version = 1, entities = [AirLineEntity::class])
-abstract class ConfigurationsDatabase : RoomDatabase() {
+abstract class RoomDatabase : RoomDatabase() {
     abstract fun getAirLineDao(): AirlLineDao
 }

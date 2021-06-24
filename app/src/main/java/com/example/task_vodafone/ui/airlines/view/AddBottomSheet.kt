@@ -27,7 +27,6 @@ class AddBottomSheet ( val newItem : (AirLineEntity) -> Unit) : BottomSheetDialo
         savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentAddAirlineBinding.inflate(layoutInflater)
-
         return binding.root
     }
 
@@ -38,7 +37,6 @@ class AddBottomSheet ( val newItem : (AirLineEntity) -> Unit) : BottomSheetDialo
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
         return BottomSheetDialog(requireContext(), theme).apply {
             behavior.isFitToContents = false
             behavior.expandedOffset = 56.dp
@@ -64,11 +62,9 @@ class AddBottomSheet ( val newItem : (AirLineEntity) -> Unit) : BottomSheetDialo
                         "",
                         etSlogon.text.toString()))
                 }
-
+                this.dismiss()
             }
         }
-
-
 
         binding.btnCancle.setOnClickListener {
 

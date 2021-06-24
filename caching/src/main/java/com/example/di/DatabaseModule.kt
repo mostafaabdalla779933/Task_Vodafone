@@ -16,15 +16,15 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideConfigurationsDatabase(@ApplicationContext context: Context?): ConfigurationsDatabase {
-        return Room.databaseBuilder(context!!, ConfigurationsDatabase::class.java, "app.db")
+    fun provideConfigurationsDatabase(@ApplicationContext context: Context?): RoomDatabase {
+        return Room.databaseBuilder(context!!, RoomDatabase::class.java, "app.db")
             .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
             .build()
     }
 
     @Provides
-    fun provideAirLineDao(database: ConfigurationsDatabase): AirlLineDao {
+    fun provideAirLineDao(database: RoomDatabase): AirlLineDao {
         return database.getAirLineDao()
     }
 }

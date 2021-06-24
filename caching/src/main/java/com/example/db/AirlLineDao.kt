@@ -12,6 +12,9 @@ interface AirlLineDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAirlLines(list: List<AirLineEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAirlLine(airline: AirLineEntity)
+
     @Query("SELECT * FROM AirLineEntity")
     suspend fun getAirlLines(): List<AirLineEntity>
 
@@ -23,9 +26,6 @@ interface AirlLineDao {
 
     @Query("SELECT * FROM AirLineEntity WHERE country like :country")
     suspend fun getAirlLineByCountryName(country: String): List<AirLineEntity>
-
-//    @Query("SELECT * FROM AirLineEntity WHERE cityId like :id")
-//    suspend fun getAirlLineByCityID(id: Int): List<AirLineEntity>
 
     @Query("DELETE FROM AirLineEntity")
     suspend fun clearAirlLines()

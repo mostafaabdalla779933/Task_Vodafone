@@ -43,12 +43,6 @@ class AirLineViewModel  @Inject constructor(val repo: LocalRepo): ViewModel(){
         }
     }
 
-    fun handleError(code : Int){
-        when(code){
-          400 ->{ Log.i("main", "handleError: ")}
-        }
-    }
-
     val coroutineExceptionHandler= CoroutineExceptionHandler{ context , thro ->
     }
 
