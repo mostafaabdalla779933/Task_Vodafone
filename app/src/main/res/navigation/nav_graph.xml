@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/countriesFragment">
+    app:startDestination="@id/airlinesFragment">
     <fragment
-        android:id="@+id/countriesFragment"
-        android:name="com.example.task_vodafone.ui.CountriesFragment"
+        android:id="@+id/airlinesFragment"
+        android:name="com.example.task_vodafone.ui.AirlinesFragment"
         android:label="fragment_countries"
-        tools:layout="@layout/fragment_countries" />
+        tools:layout="@layout/fragment_airlines" />
     <fragment
         android:id="@+id/detialsFragment"
         android:name="com.example.task_vodafone.ui.DetialsFragment"

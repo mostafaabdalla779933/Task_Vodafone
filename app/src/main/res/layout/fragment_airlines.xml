@@ -4,26 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.CountriesFragment">
+    tools:context=".ui.AirlinesFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:elevation="10dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="10dp">
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Countries"
-            android:textSize="24sp"
             android:textColor="#333333"
-            android:gravity="center"/>
+            android:textSize="24sp" />
     </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText"
+            android:id="@+id/et_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -58,11 +59,11 @@
             android:background="@drawable/btn_background"
             android:padding="10dp"
             android:src="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="@+id/textInputEditText"
+            app:layout_constraintBottom_toBottomOf="@+id/et_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/textInputEditText"
-            app:layout_constraintTop_toTopOf="@+id/textInputEditText"
+            app:layout_constraintStart_toEndOf="@+id/et_search"
+            app:layout_constraintTop_toTopOf="@+id/et_search"
             app:layout_constraintVertical_bias="0.0"
             app:layout_constraintWidth_percent=".12" />
 
@@ -72,12 +73,25 @@
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="#F4F4F4"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="#F4F4F4"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fa_btn"
+        android:layout_marginBottom="44dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rv"
+        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintStart_toEndOf="@+id/rv"
+        android:src="@drawable/ic_plus"
+        android:tint="@color/white"
+        android:backgroundTint="#E60000"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

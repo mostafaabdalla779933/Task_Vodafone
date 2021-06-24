@@ -12,7 +12,13 @@ interface APIService {
    // @JvmSuppressWildcards
     suspend fun getRequest(
         @Url api: String,
-    ): Response<AirLineModel>
+    ): Response<JsonElement>
+
+    @GET
+    // @JvmSuppressWildcards
+    suspend fun getArrRequest(
+        @Url api: String,
+    ): Response<List<AirLineModel>>
 
     @POST
     @JvmSuppressWildcards

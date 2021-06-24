@@ -2,10 +2,17 @@ package com.evaph.network.network
 
 
 import android.util.Log
+import com.evaph.network.model.response.BaseResponse
 import com.example.network.model.AirLineModel
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonElement
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.json.JSONException
+import org.json.JSONObject
 import retrofit2.Response
+import java.io.IOException
 import java.util.*
 import javax.inject.Inject
 
@@ -39,13 +46,28 @@ class NetworkManager @Inject constructor() {
 //    }
 
 
-    suspend fun  getRequest(
+    suspend fun  <T>getRequest(
         api: String,
-    ): Response<AirLineModel> {
+        parseClass: Class<T>,
+    ): Pair<T?,Int> {
         Log.i("main", "getRequest: " + api)
         return withContext(Dispatchers.IO) {
-            apiService.getRequest(api)
+            val response = apiService.getRequest(api)
+            val parse =parseResponse(response,parseClass )
 
+
+            Pair(parse,response.code())
+        }
+    }
+
+
+    suspend fun  getArrRequest(
+        api: String,
+    ): Response<List<AirLineModel>> {
+        Log.i("main", "getRequest: " + api)
+        return withContext(Dispatchers.IO) {
+            val response = apiService.getArrRequest(api)
+            response
         }
     }
 
@@ -103,27 +125,30 @@ class NetworkManager @Inject constructor() {
 
 
 
-//    @Throws(
-//        IOException::class,
-//        InstantiationException::class,
-//        IllegalAccessException::class,
-//        JSONException::class
-//    )
-//    private fun <T> parseResponse(
-//        response: Response<JsonElement>,
-//    ): Response<T> {
-//        return try {
-//            when(response.code()){
-//                400 ->{Response<T>()?.apply {
-//                    if (response.body()!!.asJsonObject.has("message"))
-//                        message = response.body()!!.asJsonObject["message"].asString
-//                    data = gson.fromJson(response.body()!!.asJsonObject["data"], parseClass)
-//                }}
-//
-//
-//            }
-//        } catch (e: Exception) {
-//            throw e
-//        }
-//    }
+    @Throws(
+        IOException::class,
+        InstantiationException::class,
+        IllegalAccessException::class,
+        JSONException::class
+    )
+    private fun <T> parseResponse(
+        response: Response<JsonElement>,
+        parseClass: Class<T>,
+    ): T? {
+        return try {
+            if (!response.isSuccessful) {
+                null
+            } else {
+                if (response.body()?.isJsonArray!!){
+                 Gson().fromJson(response.body(),parseClass)
+                }else{
+
+                Gson().fromJson(response.body(),parseClass)
+                }
+
+            }
+        } catch (e: Exception) {
+            throw e
+        }
+    }
 }
