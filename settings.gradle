@@ -1,2 +1,4 @@
 rootProject.name = "Task_Vodafone"
 include ':app'
+include ':network'
+include ':caching'

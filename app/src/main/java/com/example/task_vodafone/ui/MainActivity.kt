@@ -1,11 +1,12 @@
-package com.example.task_vodafone
+package com.example.task_vodafone.ui
 
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.task_vodafone.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding

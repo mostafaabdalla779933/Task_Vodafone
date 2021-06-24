@@ -4,10 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/countriesFragment">
-
     <fragment
         android:id="@+id/countriesFragment"
-        android:name="com.example.task_vodafone.CountriesFragment"
+        android:name="com.example.task_vodafone.ui.CountriesFragment"
         android:label="fragment_countries"
         tools:layout="@layout/fragment_countries" />
+    <fragment
+        android:id="@+id/detialsFragment"
+        android:name="com.example.task_vodafone.ui.DetialsFragment"
+        android:label="fragment_detials"
+        tools:layout="@layout/fragment_detials" />
 </navigation>

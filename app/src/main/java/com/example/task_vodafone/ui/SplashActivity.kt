@@ -1,11 +1,14 @@
-package com.example.task_vodafone
+package com.example.task_vodafone.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.task_vodafone.databinding.ActivitySplashBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
+
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
     lateinit var binding: ActivitySplashBinding
