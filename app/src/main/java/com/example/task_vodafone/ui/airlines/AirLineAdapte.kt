@@ -11,7 +11,7 @@ import com.example.task_vodafone.R
 import kotlinx.android.synthetic.main.country_layout.view.*
 
 
-class AirLineAdapte( val onclick : (String) -> Unit) : ListAdapter<AirLineEntity, AirLineAdapte.AirLineViewHolder>(AirLineCallBack()){
+class AirLineAdapte( val onclick : (AirLineEntity) -> Unit) : ListAdapter<AirLineEntity, AirLineAdapte.AirLineViewHolder>(AirLineCallBack()){
 
     class AirLineViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -34,7 +34,7 @@ class AirLineAdapte( val onclick : (String) -> Unit) : ListAdapter<AirLineEntity
 
         holder.itemView.iv_detials.setOnClickListener {
 
-            onclick(this.currentList.get(position).id)
+            onclick(this.currentList.get(position))
 
         }
     }

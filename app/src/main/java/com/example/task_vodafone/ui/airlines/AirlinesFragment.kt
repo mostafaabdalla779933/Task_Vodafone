@@ -1,17 +1,20 @@
-package com.example.task_vodafone.ui
+package com.example.task_vodafone.ui.airlines
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.example.entity.AirLineEntity
 import com.example.task_vodafone.CountryViewModel
+import com.example.task_vodafone.R
 import com.example.task_vodafone.databinding.FragmentAirlinesBinding
+import com.example.task_vodafone.ui.AirLineAdapte
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -29,6 +32,14 @@ class AirlinesFragment : Fragment() {
 
 
         myAdapter = AirLineAdapte{
+
+            val bundle = bundleOf("name" to it.name,
+                                        "id"   to it.id,
+                                        "slogon" to it.slogan,
+                                        "country" to it.country,
+                                        "head" to it.headQuaters,
+                                        "website" to it.website)
+            Navigation.findNavController(this.requireView()).navigate(R.id.detialsFragment,bundle)
 
         }
 
@@ -64,6 +75,7 @@ class AirlinesFragment : Fragment() {
         binding.faBtn.setOnClickListener {
 
 
+            AddBottomSheet().show(parentFragmentManager, "tag")
 
         }
 

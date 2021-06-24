@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.DetialsFragment"
+    tools:context=".ui.detials.DetialsFragment"
     android:background="#F4F4F4">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:src="@drawable/ic_chevron_left"
+                android:id="@+id/btn_back"
                 android:backgroundTint="@android:color/transparent"/>
 
         <TextView
@@ -56,25 +57,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
+            android:padding="20dp"
+            android:background="@color/white">
 
             <TextView
                 android:layout_width="match_parent"
+                android:id="@+id/tv_name"
                 android:layout_height="wrap_content"
                 android:text="name"
                 android:textColor="#333333"
+                android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="name"
+                android:id="@+id/tv_country"
                 android:textColor="#333333"
+                android:textSize="20sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="name"
+                android:id="@+id/tv_slogon"
                 android:textColor="#333333"
+                android:textSize="16sp"
                 android:layout_marginBottom="10dp"/>
 
             <TextView
@@ -82,21 +90,24 @@
                 android:layout_height="wrap_content"
                 android:text="Headquarters"
                 android:textColor="#666666"
+                android:textSize="14sp"
                 android:layout_marginBottom="10dp"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="name"
+                android:id="@+id/tv_head"
                 android:textColor="#333333"
+                android:textSize="16sp"
                 android:layout_marginBottom="15dp"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#E60000"
+                android:background="@drawable/btn_background"
+                android:id="@+id/btn_visit"
+                android:textSize="18sp"
                 android:text="Visit"/>
-
-
         </LinearLayout>
 
 

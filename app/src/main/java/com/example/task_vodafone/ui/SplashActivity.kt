@@ -18,11 +18,12 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         job = CoroutineScope(Dispatchers.Main).launch {
             delay(1000)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            finish()
         }
+
     }
     override fun onDestroy() {
         super.onDestroy()

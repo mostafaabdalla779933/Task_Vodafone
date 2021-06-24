@@ -4,16 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.network.model.AirLineModel
-import com.example.network.model.response.AirLineResponse
-import com.example.task_vodafone.repo.CountryRepo
+import com.example.task_vodafone.repo.RemoteRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
-class CountryViewModel  @Inject constructor(val repo: CountryRepo): ViewModel(){
+class CountryViewModel  @Inject constructor(val repo: RemoteRepo): ViewModel(){
 
     val coroutineExceptionHandler= CoroutineExceptionHandler{ context , thro ->
 

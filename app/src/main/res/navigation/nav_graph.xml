@@ -6,12 +6,17 @@
     app:startDestination="@id/airlinesFragment">
     <fragment
         android:id="@+id/airlinesFragment"
-        android:name="com.example.task_vodafone.ui.AirlinesFragment"
+        android:name="com.example.task_vodafone.ui.airlines.AirlinesFragment"
         android:label="fragment_countries"
         tools:layout="@layout/fragment_airlines" />
     <fragment
         android:id="@+id/detialsFragment"
-        android:name="com.example.task_vodafone.ui.DetialsFragment"
+        android:name="com.example.task_vodafone.ui.detials.DetialsFragment"
         android:label="fragment_detials"
         tools:layout="@layout/fragment_detials" />
+    <fragment
+        android:id="@+id/addAirlineFragment"
+        android:name="com.example.task_vodafone.ui.addairline.AddAirlineFragment"
+        android:label="fragment_add_airline"
+        tools:layout="@layout/fragment_add_airline" />
 </navigation>
