@@ -6,7 +6,7 @@
     app:startDestination="@id/airlinesFragment">
     <fragment
         android:id="@+id/airlinesFragment"
-        android:name="com.example.task_vodafone.ui.airlines.AirlinesFragment"
+        android:name="com.example.task_vodafone.ui.airlines.view.AirlinesFragment"
         android:label="fragment_countries"
         tools:layout="@layout/fragment_airlines" />
     <fragment

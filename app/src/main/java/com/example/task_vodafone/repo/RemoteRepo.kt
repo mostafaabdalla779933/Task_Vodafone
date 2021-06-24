@@ -11,8 +11,6 @@ class RemoteRepo @Inject constructor() : IRemoteRepo {
     @Inject
     lateinit var networkManager: NetworkManager
 
-
-
     override suspend fun getAirLines():Response<List<AirLineModel>>{
         val response = networkManager.getRequest(Endpoints.AIRLINES)
         return response

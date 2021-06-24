@@ -1,4 +1,4 @@
-package com.example.task_vodafone.ui.airlines
+package com.example.task_vodafone.ui.airlines.view
 
 import android.os.Bundle
 import android.text.Editable
@@ -11,10 +11,10 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.entity.AirLineEntity
-import com.example.task_vodafone.CountryViewModel
 import com.example.task_vodafone.R
 import com.example.task_vodafone.databinding.FragmentAirlinesBinding
 import com.example.task_vodafone.ui.AirLineAdapte
+import com.example.task_vodafone.ui.airlines.AirLineViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AirlinesFragment : Fragment() {
 
     lateinit var binding: FragmentAirlinesBinding
-    lateinit var viewModel: CountryViewModel
+    lateinit var viewModel: AirLineViewModel
     lateinit var myAdapter : AirLineAdapte
 
     override fun onCreateView(
@@ -30,9 +30,10 @@ class AirlinesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        binding = FragmentAirlinesBinding.inflate(layoutInflater)
+        viewModel = ViewModelProvider(this)[AirLineViewModel::class.java]
 
         myAdapter = AirLineAdapte{
-
             val bundle = bundleOf("name" to it.name,
                                         "id"   to it.id,
                                         "slogon" to it.slogan,
@@ -40,43 +41,34 @@ class AirlinesFragment : Fragment() {
                                         "head" to it.headQuaters,
                                         "website" to it.website)
             Navigation.findNavController(this.requireView()).navigate(R.id.detialsFragment,bundle)
+        }
+        binding.rv.apply {
+            adapter =myAdapter
+        }
+        viewModel.getAirLines()
 
+        viewModel.airlineList.observe(viewLifecycleOwner){
+
+            myAdapter.submitList(it)
         }
 
-        binding = FragmentAirlinesBinding.inflate(layoutInflater)
-
-        viewModel = ViewModelProvider(this)[CountryViewModel::class.java]
-
-
-        binding.rv.apply {
-
-            adapter =myAdapter
+        viewModel.airlineListFilter.observe(viewLifecycleOwner){
+            myAdapter.submitList(it)
         }
 
 
         binding.etSearch.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
+                viewModel.filter(s.toString())
             }
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        viewModel.getAirLines().observe(viewLifecycleOwner){
-            myAdapter.submitList(AirLineEntity.toEntityList(it.take(50)))
-        }
-
-        viewModel.getCountries().observe(viewLifecycleOwner){
-
-           // myAdapter.submitList()
-            //Log.i("main", "onCreateView: "+it)
-        }
-
         binding.faBtn.setOnClickListener {
-
-
-            AddBottomSheet().show(parentFragmentManager, "tag")
-
+            AddBottomSheet{
+                viewModel.addItem(it)
+            }.show(parentFragmentManager, "tag")
         }
 
         return binding.root

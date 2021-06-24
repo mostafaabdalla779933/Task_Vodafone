@@ -25,7 +25,7 @@ class NetworkManager @Inject constructor() {
     suspend fun  getRequest(
         api: String,
     ): Response<List<AirLineModel>> {
-        Log.i("main", "getRequest: " + api)
+
         return withContext(Dispatchers.IO) {
             val response = apiService.getArrRequest(api)
             response

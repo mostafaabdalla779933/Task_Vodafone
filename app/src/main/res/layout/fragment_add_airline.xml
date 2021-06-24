@@ -19,6 +19,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/et_name"
         android:background="@drawable/search_background"
         android:hint="Air line name"
         android:padding="15dp"
@@ -28,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/search_background"
+        android:id="@+id/et_slogon"
         android:hint="Slogan"
         android:padding="15dp"
         android:layout_marginBottom="15dp"/>
@@ -37,11 +39,13 @@
         android:layout_height="wrap_content"
         android:background="@drawable/search_background"
         android:hint="Country"
+        android:id="@+id/et_country"
         android:padding="15dp"
         android:layout_marginBottom="15dp"/>
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/et_head"
         android:background="@drawable/search_background"
         android:hint="Headquarters"
         android:padding="15dp"
@@ -50,6 +54,7 @@
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/et_establish"
         android:background="@drawable/search_background"
         android:inputType="number"
         android:hint="established"
@@ -61,6 +66,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/btn_background"
         android:text="Confirm"
+        android:id="@+id/btn_confirm"
         android:textColor="@color/white"
         android:padding="13dp"
         android:layout_marginBottom="15dp"/>
@@ -70,6 +76,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/search_background"
         android:text="cancle"
+        android:id="@+id/btn_cancle"
         android:textColor="#333333"
         android:padding="13dp"/>
 
