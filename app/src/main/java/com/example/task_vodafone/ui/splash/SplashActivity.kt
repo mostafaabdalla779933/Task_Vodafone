@@ -50,7 +50,6 @@ class SplashActivity : AppCompatActivity() {
 
 
     fun showToast(message:String) {
-        Log.i("main", "showToast: "+ message)
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
     }
 }

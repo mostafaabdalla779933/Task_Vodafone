@@ -47,7 +47,6 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
     }
 
     fun handleError(code : Int){
-        Log.i("main", "handleError: $code")
         if(code in 200..399){
 
             stateLiveData.postValue("connection success")
