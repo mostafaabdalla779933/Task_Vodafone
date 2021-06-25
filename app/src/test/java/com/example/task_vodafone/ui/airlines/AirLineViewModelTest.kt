@@ -18,8 +18,6 @@ class AirLineViewModelTest{
 
     private lateinit var viewModel : AirLineViewModel
 
-
-
     @Before
     fun setup(){
 
@@ -30,8 +28,6 @@ class AirLineViewModelTest{
     fun testgetAirlines(){
 
         viewModel.getAirLines()
-
-      //  val result=viewModel.airlineList.getOrAwaitValue()
         viewModel.airlineList.observeForever{
             assertNotNull(it)
         }

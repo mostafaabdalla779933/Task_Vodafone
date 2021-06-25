@@ -25,7 +25,7 @@ class AddBottomSheet ( val newItem : (AirLineEntity) -> Unit) : BottomSheetDialo
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FragmentAddAirlineBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -76,6 +76,7 @@ class AddBottomSheet ( val newItem : (AirLineEntity) -> Unit) : BottomSheetDialo
         get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
 
+    // validate added item and make sure that all input text filled
     fun vaild(): Boolean {
         binding.apply {
             if (etName.isEmpty())
@@ -90,7 +91,6 @@ class AddBottomSheet ( val newItem : (AirLineEntity) -> Unit) : BottomSheetDialo
                 return showError("fill Establish")
             else
                 return true
-
         }
     }
 

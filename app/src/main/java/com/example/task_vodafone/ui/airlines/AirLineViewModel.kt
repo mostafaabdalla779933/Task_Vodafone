@@ -14,6 +14,7 @@ class AirLineViewModel  @Inject constructor(val repo: ILocalRepo): ViewModel(){
     var airlineList = MutableLiveData<MutableList<AirLineEntity>>()
     var airlineListFilter = MutableLiveData<List<AirLineEntity>>()
 
+    // get the list of airlines from caching
     fun getAirLines(){
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler ).launch {
             val response =  repo.getAirlines()
@@ -21,8 +22,8 @@ class AirLineViewModel  @Inject constructor(val repo: ILocalRepo): ViewModel(){
         }
     }
 
+    // filter the list according to the query String
     fun filter(query : String ){
-
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler ).launch {
             airlineListFilter
                 .postValue(airlineList.value?.filter { e -> e.name?.startsWith(query, true) ?: false
@@ -32,7 +33,7 @@ class AirLineViewModel  @Inject constructor(val repo: ILocalRepo): ViewModel(){
         }
     }
 
-
+    // add item to the existing list
     fun addItem(item:AirLineEntity){
 
        val list = airlineList.value

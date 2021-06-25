@@ -15,8 +15,8 @@ import javax.inject.Singleton
 
 class RemoteRepo @Inject constructor(val networkManager: INetworkManager ) : IRemoteRepo {
 
+    // call api request to get airlines
     override suspend fun getAirLines():Response<List<AirLineModel>>{
-        Log.i("main", "getAirLines: 2")
         val response = networkManager.getRequest(Endpoints.AIRLINES)
         return response
     }

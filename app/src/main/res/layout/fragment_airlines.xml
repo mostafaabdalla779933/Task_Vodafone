@@ -44,6 +44,8 @@
             android:background="@drawable/search_background"
             android:hint="Search by airline name"
             android:paddingStart="20dp"
+            android:maxLines="1"
+            android:inputType="textFilter"
             android:paddingTop="14dp"
             android:paddingBottom="14dp"
             android:textColor="@color/black"

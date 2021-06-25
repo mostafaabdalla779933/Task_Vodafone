@@ -5,7 +5,7 @@ import com.example.entity.AirLineEntity
 
 class FakeAirLineDao  : AirlLineDao{
     override suspend fun insertAirlLines(list: List<AirLineEntity>) {
-        TODO("Not yet implemented")
+
     }
 
     override suspend fun insertAirlLine(airline: AirLineEntity) {
@@ -13,7 +13,7 @@ class FakeAirLineDao  : AirlLineDao{
     }
 
     override suspend fun getAirlLines(): List<AirLineEntity> {
-        TODO("Not yet implemented")
+        return listOf(AirLineEntity("1","","egypt","","cairo"))
     }
 
     override suspend fun getAirlLineByEnName(name: String): List<AirLineEntity> {

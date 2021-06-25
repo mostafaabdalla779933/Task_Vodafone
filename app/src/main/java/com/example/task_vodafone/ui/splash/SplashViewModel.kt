@@ -21,6 +21,7 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
 
     var stateLiveData =  MutableLiveData<String?>()
 
+    // call api and call function to cach the response
     fun getAirLines(): LiveData<Boolean> {
         val mutableLiveData = MutableLiveData<Boolean>()
 
@@ -36,6 +37,7 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
         return mutableLiveData
     }
 
+    // cach the response  in the room
     fun cachAirlines(airlines : List<AirLineModel>?){
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler ).launch {
             airlines?.let {
@@ -46,6 +48,8 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
         }
     }
 
+
+    // handle api response code
     fun handleError(code : Int){
         if(code in 200..399){
 
