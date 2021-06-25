@@ -36,14 +36,17 @@ class DetialsFragment : Fragment() {
         }
 
         binding.btnBack.setOnClickListener {
-            Log.i("main", "onCreateView: ")
             Navigation.findNavController(this.requireView()).popBackStack()
         }
 
         binding.btnVisit.setOnClickListener {
 
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://$url"))
-            startActivity(browserIntent)
+            try {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://$url"))
+                startActivity(browserIntent)
+            }catch (e: Exception){
+
+            }
         }
 
         return binding.root

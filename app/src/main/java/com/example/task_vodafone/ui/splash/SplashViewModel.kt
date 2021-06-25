@@ -6,19 +6,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.entity.AirLineEntity
 import com.example.network.model.AirLineModel
+import com.example.task_vodafone.repo.ILocalRepo
+import com.example.task_vodafone.repo.IRemoteRepo
 import com.example.task_vodafone.repo.LocalRepo
 import com.example.task_vodafone.repo.RemoteRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 
 @HiltViewModel
-class SplashViewModel @Inject constructor(val remoteRepo: RemoteRepo,val localRepo : LocalRepo ): ViewModel() {
+class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val localRepo : ILocalRepo): ViewModel() {
 
+
+    var stateLiveData =  MutableLiveData<String?>()
 
     fun getAirLines(): LiveData<Boolean> {
         val mutableLiveData = MutableLiveData<Boolean>()
@@ -27,7 +28,8 @@ class SplashViewModel @Inject constructor(val remoteRepo: RemoteRepo,val localRe
             val response =  remoteRepo.getAirLines()
             handleError(response.code())
             if(response.isSuccessful){
-                cachAirlines(response.body()?.take(50))
+                cachAirlines(response.body()?.take(1000))
+                delay(2000)
                 mutableLiveData.postValue(true)
             }
         }
@@ -39,13 +41,26 @@ class SplashViewModel @Inject constructor(val remoteRepo: RemoteRepo,val localRe
             airlines?.let {
                 val list = AirLineEntity.toEntityList(it)
                 localRepo.cachAirlines(list)
+
             }
         }
     }
 
     fun handleError(code : Int){
-        when(code){
-            400 ->{ Log.i("main", "handleError: ")}
+        Log.i("main", "handleError: $code")
+        if(code in 200..399){
+
+            stateLiveData.postValue("connection success")
+
+        } else if (code in 400..499){
+
+            // client error
+            stateLiveData.postValue("connection faild")
+
+        }else if (code >= 500 ){
+
+            stateLiveData.postValue("server problem")
+
         }
     }
 

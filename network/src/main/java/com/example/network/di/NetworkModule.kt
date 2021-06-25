@@ -3,6 +3,8 @@ package com.evaph.network.di
 import android.content.Context
 import com.evaph.network.network.APIService
 import com.evaph.network.network.Endpoints
+import com.evaph.network.network.NetworkManager
+import com.example.network.network.INetworkManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,6 +25,12 @@ class NetworkModule {
 
     @Provides
     @Singleton
+    fun provideNetworkManger(apiService: APIService): INetworkManager {
+        return NetworkManager(apiService)
+    }
+
+    @Provides
+    @Singleton
     fun provideAPIService(retrofit:Retrofit): APIService {
         return retrofit.create(APIService::class.java)
     }
@@ -30,12 +38,6 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-
-//        return Retrofit.Builder()
-//            .baseUrl("https://api.instantwebtools.net/")
-//            .addConverterFactory(GsonConverterFactory.create()).build()
-
-
         return Retrofit.Builder()
             .baseUrl(Endpoints.BASE_URL)
             .client(okHttpClient)

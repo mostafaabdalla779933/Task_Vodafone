@@ -1,16 +1,15 @@
 package com.example.task_vodafone.ui.airlines
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.entity.AirLineEntity
-import com.example.task_vodafone.repo.LocalRepo
+import com.example.task_vodafone.repo.ILocalRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
-class AirLineViewModel  @Inject constructor(val repo: LocalRepo): ViewModel(){
+class AirLineViewModel  @Inject constructor(val repo: ILocalRepo): ViewModel(){
 
     var airlineList = MutableLiveData<MutableList<AirLineEntity>>()
     var airlineListFilter = MutableLiveData<List<AirLineEntity>>()

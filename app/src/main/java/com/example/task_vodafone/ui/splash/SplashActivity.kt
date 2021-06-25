@@ -3,6 +3,8 @@ package com.example.task_vodafone.ui.splash
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.task_vodafone.databinding.ActivitySplashBinding
 import com.example.task_vodafone.ui.MainActivity
@@ -29,6 +31,12 @@ class SplashActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.stateLiveData.observe(this){ message ->
+
+            if (message != null){
+                showToast(message)
+            }
+        }
     }
     override fun onDestroy() {
         super.onDestroy()
@@ -38,5 +46,11 @@ class SplashActivity : AppCompatActivity() {
 
         startActivity(Intent(this@SplashActivity, MainActivity::class.java))
         finish()
+    }
+
+
+    fun showToast(message:String) {
+        Log.i("main", "showToast: "+ message)
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
     }
 }
