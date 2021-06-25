@@ -67,7 +67,6 @@ class AddBottomSheet ( val newItem : (AirLineEntity) -> Unit) : BottomSheetDialo
         }
 
         binding.btnCancle.setOnClickListener {
-
             this.dismiss()
         }
     }
