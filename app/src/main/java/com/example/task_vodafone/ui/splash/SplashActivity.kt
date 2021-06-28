@@ -28,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[SplashViewModel::class.java]
 
-        viewModel.getAirLines(this)
+        viewModel.getAirLines()
 
         viewModel.dataCached.observe(this){ cached ->
             if (cached){

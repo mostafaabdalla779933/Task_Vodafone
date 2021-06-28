@@ -26,9 +26,7 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
     var dataCached = MutableLiveData<Boolean>()
 
     // call api and call function to cach the response
-    fun getAirLines(context: Context){
-
-        if (isOnline(context)) {
+    fun getAirLines(){
             CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
                 val response = remoteRepo.getAirLines()
                 handleError(response.code())
@@ -40,11 +38,6 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
                     errorLineLiveData.postValue(true)
                 }
             }
-        }else{
-
-            errorLineLiveData.postValue(true)
-        }
-
     }
 
     // cach the response  in the room
@@ -63,50 +56,22 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
     fun handleError(code : Int){
         when {
             code in 200..399 -> {
-
                 stateLiveData.postValue("connection success")
-
             }
             code in 400..499 -> {
-
                 // client error
                 errorLineLiveData.postValue(true)
                 stateLiveData.postValue("connection faild")
-
             }
             code >= 500 -> {
-
                 errorLineLiveData.postValue(true)
                 stateLiveData.postValue("server problem")
-
             }
         }
     }
 
     val coroutineExceptionHandler= CoroutineExceptionHandler{ _, thro->
         errorLineLiveData.postValue(true)
-    }
-
-
-    fun isOnline(context: Context): Boolean {
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val capabilities =
-            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-        if (capabilities != null) {
-            when {
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
-                    return true
-                }
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
-                    return true
-                }
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
-                    return true
-                }
-            }
-        }
-        return false
     }
 
 
