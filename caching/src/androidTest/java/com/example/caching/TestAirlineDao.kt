@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.evaph.database.db.AirlLineDao
-import com.evaph.database.db.RoomDatabase
+import com.example.db.AirlLineDao
+import com.example.db.RoomDatabase
 import com.example.entity.AirLineEntity
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -42,9 +42,10 @@ class TestAirlineDao {
 
         airlineDao.insertAirlLine(airLine)
 
-        val list =  airlineDao.getAirlLines()
+        airlineDao.getAirlLines().observeForever{
+            assert(it.contains(airLine))
+        }
 
-        assert(list.contains(airLine))
     }
 
     @Test
@@ -54,10 +55,10 @@ class TestAirlineDao {
             AirLineEntity("3", "1955","egypt",".com","alex"))
 
         airlineDao.insertAirlLines(airLineList)
-        val list =  airlineDao.getAirlLines()
-
-        assert(list.contains(airLineList[0]))
-        assert(list.contains(airLineList[1]))
+        val list =  airlineDao.getAirlLines().observeForever{
+            assert(it.contains(airLineList[0]))
+            assert(it.contains(airLineList[1]))
+        }
     }
 
 
@@ -66,7 +67,7 @@ class TestAirlineDao {
         airlineDao.clearAirlLines()
 
         val list =  airlineDao.getAirlLines()
-        assert(list.size == 0)
+        assert(list.value?.size == 0)
     }
 
     @Test
@@ -75,12 +76,10 @@ class TestAirlineDao {
             AirLineEntity("2", "1955","egypt",".com","alex"))
 
         airlineDao.insertAirlLines(airLineList)
-        val list =  airlineDao.getAirlLines()
-
-        assert(!list.contains(airLineList[0]))
-        assert(list.contains(airLineList[1]))
+        airlineDao.getAirlLines().observeForever{
+            assert(!it.contains(airLineList[0]))
+            assert(it.contains(airLineList[1]))
+        }
     }
-
-
 }
 

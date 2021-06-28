@@ -1,5 +1,6 @@
-package com.evaph.database.db
+package com.example.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,7 +17,7 @@ interface AirlLineDao {
     suspend fun insertAirlLine(airline: AirLineEntity)
 
     @Query("SELECT * FROM AirLineEntity")
-    suspend fun getAirlLines(): List<AirLineEntity>
+    fun getAirlLines(): LiveData<List<AirLineEntity>>
 
     @Query("SELECT * FROM AirLineEntity WHERE name like :name")
     suspend fun getAirlLineByEnName(name: String): List<AirLineEntity>

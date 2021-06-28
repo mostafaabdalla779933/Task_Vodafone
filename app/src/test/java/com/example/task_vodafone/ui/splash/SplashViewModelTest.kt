@@ -11,7 +11,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 
-@RunWith(AndroidJUnit4::class)
+//@RunWith(AndroidJUnit4::class)
 class SplashViewModelTest{
 
     @get:Rule
@@ -28,14 +28,21 @@ class SplashViewModelTest{
     }
 
     @Test
-    fun testgetAirlines(){
+    fun `test get airline return true`(){
 
-//        viewModel.getAirLines()
-//
-//        //  val result=viewModel.airlineList.getOrAwaitValue()
-//        viewModel.airlineList.observeForever{
-//            assertNotNull(it)
-//        }
+        viewModel.getAirLines()
+
+        assert(true)
+    }
+
+    @Test
+    fun `test handle error take code 200 post value success`(){
+        viewModel.handleError(200)
+        viewModel.stateLiveData.observeForever{
+
+            assert(it.equals("connection success"))
+
+        }
     }
 
 

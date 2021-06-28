@@ -1,5 +1,8 @@
 package com.example.task_vodafone.ui.splash
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,23 +21,30 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val localRepo : ILocalRepo): ViewModel() {
 
-
     var stateLiveData =  MutableLiveData<String?>()
+    var errorLineLiveData = MutableLiveData<Boolean>()
+    var dataCached = MutableLiveData<Boolean>()
 
     // call api and call function to cach the response
-    fun getAirLines(): LiveData<Boolean> {
-        val mutableLiveData = MutableLiveData<Boolean>()
+    fun getAirLines(context: Context){
 
-        CoroutineScope(Dispatchers.IO + coroutineExceptionHandler ).launch {
-            val response =  remoteRepo.getAirLines()
-            handleError(response.code())
-            if(response.isSuccessful){
-                cachAirlines(response.body()?.take(1000))
-                delay(2000)
-                mutableLiveData.postValue(true)
+        if (isOnline(context)) {
+            CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+                val response = remoteRepo.getAirLines()
+                handleError(response.code())
+                if (response.isSuccessful) {
+                    cachAirlines(response.body())
+                    delay(2000)
+                    dataCached.postValue(true)
+                }else{
+                    errorLineLiveData.postValue(true)
+                }
             }
+        }else{
+
+            errorLineLiveData.postValue(true)
         }
-        return mutableLiveData
+
     }
 
     // cach the response  in the room
@@ -51,25 +61,52 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
 
     // handle api response code
     fun handleError(code : Int){
-        if(code in 200..399){
+        when {
+            code in 200..399 -> {
 
-            stateLiveData.postValue("connection success")
+                stateLiveData.postValue("connection success")
 
-        } else if (code in 400..499){
+            }
+            code in 400..499 -> {
 
-            // client error
-            stateLiveData.postValue("connection faild")
+                // client error
+                errorLineLiveData.postValue(true)
+                stateLiveData.postValue("connection faild")
 
-        }else if (code >= 500 ){
+            }
+            code >= 500 -> {
 
-            stateLiveData.postValue("server problem")
+                errorLineLiveData.postValue(true)
+                stateLiveData.postValue("server problem")
 
+            }
         }
     }
 
     val coroutineExceptionHandler= CoroutineExceptionHandler{ context , thro ->
     }
 
+
+    fun isOnline(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        if (capabilities != null) {
+            when {
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
+                    return true
+                }
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> {
+                    return true
+                }
+            }
+        }
+        return false
+    }
 
 
 }

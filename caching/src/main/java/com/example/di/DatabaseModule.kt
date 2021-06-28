@@ -1,8 +1,9 @@
-package com.evaph.database.di
+package com.example.di
 
 import android.content.Context
 import androidx.room.Room
-import com.evaph.database.db.*
+import com.example.db.AirlLineDao
+import com.example.db.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,8 +11,11 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
+
+
+
 @Module
+@InstallIn(SingletonComponent::class)
 class DatabaseModule {
 
     @Provides

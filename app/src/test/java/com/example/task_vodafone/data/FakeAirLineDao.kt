@@ -1,9 +1,9 @@
 package com.example.task_vodafone.data
 
-import com.evaph.database.db.AirlLineDao
+import com.example.db.AirlLineDao
 import com.example.entity.AirLineEntity
 
-class FakeAirLineDao  : AirlLineDao{
+class FakeAirLineDao  : AirlLineDao {
     override suspend fun insertAirlLines(list: List<AirLineEntity>) {
 
     }

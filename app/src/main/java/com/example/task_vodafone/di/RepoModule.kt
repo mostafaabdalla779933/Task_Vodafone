@@ -1,7 +1,6 @@
 package com.example.task_vodafone.di
 
-import com.evaph.database.db.AirlLineDao
-import com.evaph.network.network.NetworkManager
+import com.example.db.AirlLineDao
 import com.example.network.network.INetworkManager
 import com.example.task_vodafone.repo.ILocalRepo
 import com.example.task_vodafone.repo.IRemoteRepo
@@ -11,7 +10,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
 
