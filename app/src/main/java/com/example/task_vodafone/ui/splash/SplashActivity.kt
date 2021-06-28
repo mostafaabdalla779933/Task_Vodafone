@@ -45,7 +45,7 @@ class SplashActivity : AppCompatActivity() {
                     .setAction("reload") {
                         Log.i("main", "onCreate:  entered")
                         binding.pb.visibility = View.VISIBLE
-                        viewModel.getAirLines(this)
+                        viewModel.getAirLines()
                     }.show()
             }
         }
@@ -63,7 +63,6 @@ class SplashActivity : AppCompatActivity() {
 
     }
     fun navigate(){
-
         startActivity(Intent(this@SplashActivity, MainActivity::class.java))
         finish()
     }
