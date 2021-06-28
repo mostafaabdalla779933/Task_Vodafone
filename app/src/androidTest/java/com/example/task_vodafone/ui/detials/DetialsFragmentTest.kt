@@ -1,6 +1,6 @@
 package com.example.task_vodafone.ui.detials
 
-import android.os.Bundle
+
 import androidx.core.os.bundleOf
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso
@@ -14,7 +14,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 
-//@RunWith(AndroidJUnit4::class)
+@RunWith(AndroidJUnit4::class)
 class DetialsFragmentTest{
 
 

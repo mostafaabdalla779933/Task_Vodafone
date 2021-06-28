@@ -1,5 +1,6 @@
 package com.example.task_vodafone.ui.airlines
 
+import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.example.entity.AirLineEntity
@@ -43,6 +44,8 @@ class AirLineViewModel  @Inject constructor(val repo: ILocalRepo): ViewModel(){
     }
 
     val coroutineExceptionHandler= CoroutineExceptionHandler{ context , thro ->
+
+        Log.i("main", "excpetion")
     }
 
 }

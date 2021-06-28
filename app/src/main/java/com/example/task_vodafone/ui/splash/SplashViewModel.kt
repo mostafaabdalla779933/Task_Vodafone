@@ -83,7 +83,8 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
         }
     }
 
-    val coroutineExceptionHandler= CoroutineExceptionHandler{ context , thro ->
+    val coroutineExceptionHandler= CoroutineExceptionHandler{ _, thro->
+        errorLineLiveData.postValue(true)
     }
 
 
