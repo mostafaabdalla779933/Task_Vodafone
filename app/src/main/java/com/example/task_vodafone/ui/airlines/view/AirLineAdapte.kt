@@ -1,6 +1,6 @@
-package com.example.task_vodafone.ui
+package com.example.task_vodafone.ui.airlines.view
 
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +12,13 @@ import com.example.task_vodafone.R
 import kotlinx.android.synthetic.main.country_layout.view.*
 
 
-class AirLineAdapte( val onclick : (AirLineEntity) -> Unit) : ListAdapter<AirLineEntity, AirLineAdapte.AirLineViewHolder>(Callback){
+class AirLineAdapte( val onclick : (AirLineEntity) -> Unit) : ListAdapter<AirLineEntity, AirLineAdapte.AirLineViewHolder>(
+    Callback
+){
 
     class AirLineViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         companion object {
-            fun from(parent: ViewGroup):  AirLineViewHolder {
+            fun from(parent: ViewGroup): AirLineViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val view = layoutInflater.inflate(R.layout.country_layout, parent, false)
                 return AirLineViewHolder(view)

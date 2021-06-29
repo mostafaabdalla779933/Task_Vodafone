@@ -10,15 +10,15 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.example.entity.AirLineEntity
 import com.example.task_vodafone.R
 import com.example.task_vodafone.databinding.FragmentAirlinesBinding
-import com.example.task_vodafone.ui.AirLineAdapte
 import com.example.task_vodafone.ui.airlines.AirLineViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class AirlinesFragment : Fragment() {
+class AirlinesFragment : Fragment() ,Communicate{
 
     lateinit var binding: FragmentAirlinesBinding
     lateinit var viewModel: AirLineViewModel
@@ -61,11 +61,13 @@ class AirlinesFragment : Fragment() {
         })
 
         binding.faBtn.setOnClickListener {
-            AddBottomSheet{
-                viewModel.addItem(it)
-            }.show(parentFragmentManager, "tag")
+            AddBottomSheet().show(childFragmentManager, "tag")
         }
 
         return binding.root
+    }
+
+    override fun onItemSelect(airLineEntity: AirLineEntity) {
+        viewModel.addItem(airLineEntity)
     }
 }

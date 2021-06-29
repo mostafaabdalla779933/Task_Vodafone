@@ -17,7 +17,7 @@ import com.google.android.material.textfield.TextInputEditText
 import java.util.*
 
 
-class AddBottomSheet ( val newItem : (AirLineEntity) -> Unit) : BottomSheetDialogFragment() {
+class AddBottomSheet () : BottomSheetDialogFragment() {
 
     lateinit var binding : FragmentAddAirlineBinding
 
@@ -55,7 +55,8 @@ class AddBottomSheet ( val newItem : (AirLineEntity) -> Unit) : BottomSheetDialo
         binding.btnConfirm.setOnClickListener {
             if (vaild()){
                 binding.apply {
-                    newItem(AirLineEntity(Calendar.getInstance().timeInMillis.toString(),etEstablish.text.toString(),
+                    (parentFragment as Communicate).onItemSelect(AirLineEntity(Calendar.getInstance().timeInMillis.toString(),
+                        etEstablish.text.toString(),
                         etCountry.text.toString(),
                         "",
                         etName.text.toString(),

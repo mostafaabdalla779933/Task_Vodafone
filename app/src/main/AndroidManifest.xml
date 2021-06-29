@@ -22,8 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

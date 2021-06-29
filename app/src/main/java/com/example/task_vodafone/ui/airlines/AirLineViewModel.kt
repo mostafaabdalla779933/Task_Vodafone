@@ -1,6 +1,6 @@
 package com.example.task_vodafone.ui.airlines
 
-import android.util.Log
+
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.example.entity.AirLineEntity
