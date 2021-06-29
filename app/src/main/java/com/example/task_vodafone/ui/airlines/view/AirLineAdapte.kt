@@ -1,5 +1,6 @@
 package com.example.task_vodafone.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,6 @@ import kotlinx.android.synthetic.main.country_layout.view.*
 class AirLineAdapte( val onclick : (AirLineEntity) -> Unit) : ListAdapter<AirLineEntity, AirLineAdapte.AirLineViewHolder>(Callback){
 
     class AirLineViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         companion object {
             fun from(parent: ViewGroup):  AirLineViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
@@ -34,16 +34,19 @@ class AirLineAdapte( val onclick : (AirLineEntity) -> Unit) : ListAdapter<AirLin
 
         holder.itemView.setOnClickListener {
 
-            onclick(this.currentList.get(position))
+            if (position + 1 <= currentList.size)
+            onclick(getItem(position))
         }
     }
+
+
     companion object {
         private val Callback = object : DiffUtil.ItemCallback<AirLineEntity>() {
             override fun areItemsTheSame(oldItem: AirLineEntity, newItem: AirLineEntity): Boolean =
-                oldItem == newItem
+                oldItem.id == newItem.id
 
             override fun areContentsTheSame(oldItem: AirLineEntity, newItem: AirLineEntity): Boolean =
-                oldItem.id == newItem.id
+                oldItem == newItem
         }
     }
 }

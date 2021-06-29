@@ -39,11 +39,9 @@ class SplashActivity : AppCompatActivity() {
         viewModel.errorLineLiveData.observe(this){ offline ->
 
             if(offline){
-
                 binding.pb.visibility = View.GONE
                 Snackbar.make(binding.root , getString(R.string.no_internet_connection), Snackbar.LENGTH_INDEFINITE )
                     .setAction("reload") {
-                        Log.i("main", "onCreate:  entered")
                         binding.pb.visibility = View.VISIBLE
                         viewModel.getAirLines()
                     }.show()
@@ -60,7 +58,7 @@ class SplashActivity : AppCompatActivity() {
     }
     override fun onDestroy() {
         super.onDestroy()
-
+        viewModel.clear()
     }
     fun navigate(){
         startActivity(Intent(this@SplashActivity, MainActivity::class.java))

@@ -13,4 +13,8 @@ interface ILocalRepo  {
 
     suspend fun addAirline(airLineEntity: AirLineEntity)
 
+    fun putCached()
+
+    fun getCached():Boolean
+
 }

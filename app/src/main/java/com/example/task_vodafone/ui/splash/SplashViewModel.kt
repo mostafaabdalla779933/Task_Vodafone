@@ -24,31 +24,34 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
     var stateLiveData =  MutableLiveData<String?>()
     var errorLineLiveData = MutableLiveData<Boolean>()
     var dataCached = MutableLiveData<Boolean>()
+    var job : Job? = null
 
     // call api and call function to cach the response
     fun getAirLines(){
-            CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
-                val response = remoteRepo.getAirLines()
-                handleError(response.code())
-                if (response.isSuccessful) {
-                    cachAirlines(response.body())
-                    delay(2000)
-                    dataCached.postValue(true)
+        job =  CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+                if(!localRepo.getCached()) {
+                    val response = remoteRepo.getAirLines()
+                    handleError(response.code())
+                    if (response.isSuccessful) {
+                        cachAirlines(response.body())
+                        localRepo.putCached()
+                        dataCached.postValue(true)
+                    } else {
+                        errorLineLiveData.postValue(true)
+                    }
                 }else{
-                    errorLineLiveData.postValue(true)
+                    delay(1000)
+                    dataCached.postValue(true)
                 }
             }
     }
 
     // cach the response  in the room
-    fun cachAirlines(airlines : List<AirLineModel>?){
-        CoroutineScope(Dispatchers.IO + coroutineExceptionHandler ).launch {
+    suspend fun cachAirlines(airlines : List<AirLineModel>?){
             airlines?.let {
                 val list = AirLineEntity.toEntityList(it)
                 localRepo.cachAirlines(list)
-
             }
-        }
     }
 
 
@@ -74,6 +77,10 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
         errorLineLiveData.postValue(true)
     }
 
+
+    fun clear(){
+        job?.cancel()
+    }
 
 }
 

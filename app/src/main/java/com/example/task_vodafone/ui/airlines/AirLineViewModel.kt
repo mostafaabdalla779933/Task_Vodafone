@@ -18,9 +18,9 @@ class AirLineViewModel  @Inject constructor(val repo: ILocalRepo): ViewModel(){
     // get the list of airlines from caching
     fun getAirLines(){
             CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
-               airlineList.addSource(repo.getAirlines()){
-                   airlineListFilter=it
-                   airlineList.postValue(it)
+               airlineList.addSource(repo.getAirlines()){list ->
+                   airlineListFilter=list
+                   airlineList.postValue(list)
                }
             }
     }
@@ -45,7 +45,6 @@ class AirLineViewModel  @Inject constructor(val repo: ILocalRepo): ViewModel(){
 
     val coroutineExceptionHandler= CoroutineExceptionHandler{ context , thro ->
 
-        Log.i("main", "excpetion")
     }
 
 }

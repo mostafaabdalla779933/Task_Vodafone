@@ -1,5 +1,6 @@
 package com.example.task_vodafone.di
 
+import android.content.SharedPreferences
 import com.example.db.AirlLineDao
 import com.example.network.network.INetworkManager
 import com.example.task_vodafone.repo.ILocalRepo
@@ -20,8 +21,8 @@ class RepoModule {
 
         @Provides
         @Singleton
-        fun provideLocalRepo(airlLineDao: AirlLineDao): ILocalRepo {
-            return LocalRepo(airlLineDao)
+        fun provideLocalRepo(airlLineDao: AirlLineDao,shared : SharedPreferences): ILocalRepo {
+            return LocalRepo(airlLineDao,shared)
         }
 
         @Provides

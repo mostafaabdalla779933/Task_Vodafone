@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:background="@drawable/search_background"
-            android:hint="Search by airline name"
+            android:hint="@string/search_by_airline_name"
             android:paddingStart="20dp"
             android:maxLines="1"
             android:inputType="textFilter"

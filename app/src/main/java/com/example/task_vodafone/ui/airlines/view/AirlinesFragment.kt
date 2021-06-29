@@ -48,7 +48,7 @@ class AirlinesFragment : Fragment() {
 
         viewModel.airlineList.observe(viewLifecycleOwner){
             myAdapter.submitList(it)
-            myAdapter.notifyDataSetChanged()
+
         }
 
 
