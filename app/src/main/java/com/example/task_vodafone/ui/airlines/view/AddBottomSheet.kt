@@ -1,6 +1,7 @@
 package com.example.task_vodafone.ui.airlines.view
 
 import android.app.Dialog
+import android.content.pm.ActivityInfo
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,10 +18,9 @@ import com.google.android.material.textfield.TextInputEditText
 import java.util.*
 
 
-class AddBottomSheet () : BottomSheetDialogFragment() {
+class AddBottomSheet : BottomSheetDialogFragment() {
 
     lateinit var binding : FragmentAddAirlineBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +28,8 @@ class AddBottomSheet () : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentAddAirlineBinding.inflate(layoutInflater)
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         return binding.root
     }
 
@@ -78,7 +80,7 @@ class AddBottomSheet () : BottomSheetDialogFragment() {
 
 
     // validate added item and make sure that all input text filled
-    fun vaild(): Boolean {
+    private fun vaild(): Boolean {
         binding.apply {
             if (etName.isEmpty())
                 return showError("fill name")
@@ -99,10 +101,15 @@ class AddBottomSheet () : BottomSheetDialogFragment() {
         return this.text.toString().isEmpty()
     }
 
-    fun showError(message:String) :Boolean{
+    private fun showError(message:String) :Boolean{
         Toast.makeText(requireContext(),message,Toast.LENGTH_SHORT).show()
         return false
     }
 
+
+    override fun onDestroy() {
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
+        super.onDestroy()
+    }
 
 }

@@ -3,14 +3,12 @@ package com.example.task_vodafone.ui.splash
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.task_vodafone.R
 import com.example.task_vodafone.databinding.ActivitySplashBinding
 import com.example.task_vodafone.ui.MainActivity
-import com.example.task_vodafone.ui.airlines.AirLineViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -19,7 +17,7 @@ import kotlinx.coroutines.*
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivitySplashBinding
+    private lateinit var binding: ActivitySplashBinding
     lateinit var viewModel : SplashViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,13 +58,13 @@ class SplashActivity : AppCompatActivity() {
         super.onDestroy()
         viewModel.clear()
     }
-    fun navigate(){
+    private fun navigate(){
         startActivity(Intent(this@SplashActivity, MainActivity::class.java))
         finish()
     }
 
 
-    fun showToast(message:String) {
+    private fun showToast(message:String) {
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
     }
 }

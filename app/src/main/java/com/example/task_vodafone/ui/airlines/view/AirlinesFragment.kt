@@ -9,12 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.entity.AirLineEntity
 import com.example.task_vodafone.R
 import com.example.task_vodafone.databinding.FragmentAirlinesBinding
+import com.example.task_vodafone.ui.MainActivity
 import com.example.task_vodafone.ui.airlines.AirLineViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 @AndroidEntryPoint
@@ -39,7 +41,7 @@ class AirlinesFragment : Fragment() ,Communicate{
                                         "country" to it.country,
                                         "head" to it.headQuaters,
                                         "website" to it.website)
-            Navigation.findNavController(this.requireView()).navigate(R.id.detialsFragment,bundle)
+           findNavController().navigate(R.id.action_airlinesFragment_to_detialsFragment,bundle)
         }
         binding.rv.apply {
             adapter =myAdapter
@@ -48,9 +50,16 @@ class AirlinesFragment : Fragment() ,Communicate{
 
         viewModel.airlineList.observe(viewLifecycleOwner){
             myAdapter.submitList(it)
+            myAdapter.notifyDataSetChanged()
 
         }
+        addListener()
 
+
+        return binding.root
+    }
+
+    private fun addListener(){
 
         binding.etSearch.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -60,14 +69,16 @@ class AirlinesFragment : Fragment() ,Communicate{
             override fun afterTextChanged(s: Editable?) {}
         })
 
-        binding.faBtn.setOnClickListener {
+        (requireActivity() as MainActivity).binding.faBtn.setOnClickListener {
             AddBottomSheet().show(childFragmentManager, "tag")
         }
 
-        return binding.root
     }
 
     override fun onItemSelect(airLineEntity: AirLineEntity) {
         viewModel.addItem(airLineEntity)
+    }
+    companion object{
+        const val CITY = "city"
     }
 }

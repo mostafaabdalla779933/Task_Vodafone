@@ -17,7 +17,7 @@ interface AirlLineDao {
     suspend fun insertAirlLine(airline: AirLineEntity)
 
     @Query("SELECT * FROM AirLineEntity")
-    fun getAirlLines(): LiveData<List<AirLineEntity>>
+    fun getAirlLines(): List<AirLineEntity>
 
     @Query("SELECT * FROM AirLineEntity WHERE name like :name")
     suspend fun getAirlLineByEnName(name: String): List<AirLineEntity>

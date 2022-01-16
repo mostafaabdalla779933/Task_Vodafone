@@ -14,8 +14,8 @@ class FakeAirLineDao  : AirlLineDao {
         TODO("Not yet implemented")
     }
 
-    override fun getAirlLines(): LiveData<List<AirLineEntity>> {
-        return MutableLiveData(listOf(AirLineEntity("1","","egypt","","cairo")))
+    override fun getAirlLines(): List<AirLineEntity> {
+        return listOf(AirLineEntity("1","","egypt","","cairo"))
     }
 
     override suspend fun getAirlLineByEnName(name: String): List<AirLineEntity> {

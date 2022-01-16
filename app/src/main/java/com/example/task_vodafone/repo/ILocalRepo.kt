@@ -9,7 +9,7 @@ interface ILocalRepo  {
 
     suspend fun cachAirlines(airlines: List<AirLineEntity>)
 
-    suspend fun getAirlines(): LiveData<List<AirLineEntity>>
+    suspend fun getAirlines(): List<AirLineEntity>
 
     suspend fun addAirline(airLineEntity: AirLineEntity)
 

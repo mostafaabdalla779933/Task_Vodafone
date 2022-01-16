@@ -42,9 +42,8 @@ class TestAirlineDao {
 
         airlineDao.insertAirlLine(airLine)
 
-        airlineDao.getAirlLines().observeForever{
-            assert(it.contains(airLine))
-        }
+            assert(airlineDao.getAirlLines().contains(airLine))
+
 
     }
 
@@ -55,7 +54,7 @@ class TestAirlineDao {
             AirLineEntity("3", "1955","egypt",".com","alex"))
 
         airlineDao.insertAirlLines(airLineList)
-        val list =  airlineDao.getAirlLines().observeForever{
+       airlineDao.getAirlLines().let{
             assert(it.contains(airLineList[0]))
             assert(it.contains(airLineList[1]))
         }
@@ -65,9 +64,7 @@ class TestAirlineDao {
     @Test
     fun clearTable() = runBlocking {
         airlineDao.clearAirlLines()
-
-        val list =  airlineDao.getAirlLines()
-        assert(list.value?.size == 0)
+        assert(airlineDao.getAirlLines()?.size == 0)
     }
 
     @Test
@@ -76,7 +73,7 @@ class TestAirlineDao {
             AirLineEntity("2", "1955","egypt",".com","alex"))
 
         airlineDao.insertAirlLines(airLineList)
-        airlineDao.getAirlLines().observeForever{
+        airlineDao.getAirlLines().let{
             assert(!it.contains(airLineList[0]))
             assert(it.contains(airLineList[1]))
         }

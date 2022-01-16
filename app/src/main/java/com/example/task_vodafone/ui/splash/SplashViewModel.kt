@@ -1,39 +1,32 @@
 package com.example.task_vodafone.ui.splash
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.entity.AirLineEntity
 import com.example.network.model.AirLineModel
 import com.example.task_vodafone.repo.ILocalRepo
 import com.example.task_vodafone.repo.IRemoteRepo
-import com.example.task_vodafone.repo.LocalRepo
-import com.example.task_vodafone.repo.RemoteRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
 
 @HiltViewModel
-class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val localRepo : ILocalRepo): ViewModel() {
+class SplashViewModel @Inject constructor(private val remoteRepo: IRemoteRepo, private val localRepo : ILocalRepo): ViewModel() {
 
     var stateLiveData =  MutableLiveData<String?>()
     var errorLineLiveData = MutableLiveData<Boolean>()
     var dataCached = MutableLiveData<Boolean>()
-    var job : Job? = null
+    private var job : Job? = null
 
-    // call api and call function to cach the response
+    // call api and call function to cache the response
     fun getAirLines(){
         job =  CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
                 if(!localRepo.getCached()) {
                     val response = remoteRepo.getAirLines()
                     handleError(response.code())
                     if (response.isSuccessful) {
-                        cachAirlines(response.body())
+                        cacheAirlines(response.body())
                         localRepo.putCached()
                         dataCached.postValue(true)
                     } else {
@@ -46,8 +39,8 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
             }
     }
 
-    // cach the response  in the room
-    suspend fun cachAirlines(airlines : List<AirLineModel>?){
+    // cache the response  in the room
+    private suspend fun cacheAirlines(airlines : List<AirLineModel>?){
             airlines?.let {
                 val list = AirLineEntity.toEntityList(it)
                 localRepo.cachAirlines(list)
@@ -64,7 +57,7 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
             code in 400..499 -> {
                 // client error
                 errorLineLiveData.postValue(true)
-                stateLiveData.postValue("connection faild")
+                stateLiveData.postValue("connection failed")
             }
             code >= 500 -> {
                 errorLineLiveData.postValue(true)
@@ -73,13 +66,14 @@ class SplashViewModel @Inject constructor(val remoteRepo: IRemoteRepo, val local
         }
     }
 
-    val coroutineExceptionHandler= CoroutineExceptionHandler{ _, thro->
+    private val coroutineExceptionHandler= CoroutineExceptionHandler{ _, _ ->
         errorLineLiveData.postValue(true)
     }
 
 
     fun clear(){
-        job?.cancel()
+        if(job!=null && !job?.isActive!!)
+           job?.cancel()
     }
 
 }

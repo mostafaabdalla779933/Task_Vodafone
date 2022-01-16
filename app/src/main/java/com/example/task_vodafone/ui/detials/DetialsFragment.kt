@@ -13,7 +13,7 @@ import com.example.task_vodafone.databinding.FragmentDetialsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
-@AndroidEntryPoint
+//@AndroidEntryPoint
 class DetialsFragment : Fragment() {
 
 
@@ -35,9 +35,6 @@ class DetialsFragment : Fragment() {
             }
         }
 
-        binding.btnBack.setOnClickListener {
-            Navigation.findNavController(this.requireView()).popBackStack()
-        }
 
         binding.btnVisit.setOnClickListener {
 

@@ -10,8 +10,6 @@ import retrofit2.Response
 class FakeRemoteRepo : IRemoteRepo{
     override suspend fun getAirLines(): Response<List<AirLineModel>> {
 
-
-
-        TODO("Not yet implemented")
+        return  Response.success(200, listOf(AirLineModel("","","")))
     }
 }

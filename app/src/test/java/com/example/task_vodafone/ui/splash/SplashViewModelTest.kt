@@ -28,11 +28,15 @@ class SplashViewModelTest{
     }
 
     @Test
-    fun `test get airline return true`(){
+    fun `test get airline post datacached true`(){
 
         viewModel.getAirLines()
 
-        assert(true)
+        viewModel.dataCached.observeForever{
+
+            assert(it)
+        }
+
     }
 
     @Test

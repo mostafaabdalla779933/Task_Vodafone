@@ -6,26 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.airlines.view.AirlinesFragment">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:elevation="10dp"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Countries"
-            android:textColor="#333333"
-            android:textSize="24sp" />
-    </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout"
@@ -34,7 +15,7 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:weightSum="100"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_search"
@@ -44,6 +25,7 @@
             android:background="@drawable/search_background"
             android:hint="@string/search_by_airline_name"
             android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:maxLines="1"
             android:inputType="textFilter"
             android:paddingTop="14dp"
@@ -60,6 +42,7 @@
             android:layout_height="0dp"
             android:background="@drawable/btn_background"
             android:padding="10dp"
+            android:id="@+id/search_btn"
             android:src="@drawable/ic_search"
             app:layout_constraintBottom_toBottomOf="@+id/et_search"
             app:layout_constraintEnd_toEndOf="parent"
@@ -77,23 +60,14 @@
         android:layout_height="0dp"
         android:background="#F4F4F4"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/country_layout"
+        android:scrollbars="vertical"
+        android:scrollbarSize="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fa_btn"
-        android:layout_marginBottom="44dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/rv"
-        app:layout_constraintHorizontal_bias="0.19"
-        app:layout_constraintStart_toEndOf="@+id/rv"
-        android:src="@drawable/ic_plus"
-        android:tint="@color/white"
-        android:backgroundTint="#E60000"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

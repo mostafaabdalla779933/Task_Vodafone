@@ -2,9 +2,6 @@ package com.example.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.room.Room
-import com.example.db.AirlLineDao
-import com.example.db.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +13,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class SharedPrefModule {
+
 
 
     @Provides

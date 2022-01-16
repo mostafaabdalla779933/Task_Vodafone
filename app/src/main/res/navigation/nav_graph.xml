@@ -8,15 +8,19 @@
         android:id="@+id/airlinesFragment"
         android:name="com.example.task_vodafone.ui.airlines.view.AirlinesFragment"
         android:label="fragment_countries"
-        tools:layout="@layout/fragment_airlines" />
+        tools:layout="@layout/fragment_airlines" >
+        <action
+            android:id="@+id/action_airlinesFragment_to_detialsFragment"
+            app:destination="@id/detialsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
     <fragment
         android:id="@+id/detialsFragment"
         android:name="com.example.task_vodafone.ui.detials.DetialsFragment"
         android:label="fragment_detials"
         tools:layout="@layout/fragment_detials" />
-    <fragment
-        android:id="@+id/addAirlineFragment"
-        android:name="com.example.task_vodafone.ui.addairline.AddAirlineFragment"
-        android:label="fragment_add_airline"
-        tools:layout="@layout/fragment_add_airline" />
+
 </navigation>

@@ -1,9 +1,6 @@
 package com.example.task_vodafone.repo
 
 import android.content.SharedPreferences
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.db.AirlLineDao
 import com.example.entity.AirLineEntity
 import javax.inject.Inject
@@ -15,7 +12,7 @@ class LocalRepo @Inject constructor(val airlLineDao : AirlLineDao,val shared : S
         airlLineDao.insertAirlLines(airlines)
     }
     // get the list of Airlines from the room
-    override suspend fun getAirlines() : LiveData<List<AirLineEntity>> = airlLineDao.getAirlLines()
+    override suspend fun getAirlines() : List<AirLineEntity> = airlLineDao.getAirlLines()
 
     // add Airline to the room
     override suspend fun addAirline(airLineEntity: AirLineEntity) {

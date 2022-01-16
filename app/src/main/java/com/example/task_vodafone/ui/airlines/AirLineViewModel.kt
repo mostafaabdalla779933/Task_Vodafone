@@ -2,6 +2,7 @@ package com.example.task_vodafone.ui.airlines
 
 
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.entity.AirLineEntity
 import com.example.task_vodafone.repo.ILocalRepo
@@ -12,16 +13,16 @@ import javax.inject.Inject
 @HiltViewModel
 class AirLineViewModel  @Inject constructor(val repo: ILocalRepo): ViewModel(){
 
-    var airlineList  : MediatorLiveData<List<AirLineEntity>> = MediatorLiveData()
+    var airlineList  : MutableLiveData<List<AirLineEntity>> = MutableLiveData()
     var airlineListFilter = listOf<AirLineEntity>()
 
     // get the list of airlines from caching
     fun getAirLines(){
             CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
-               airlineList.addSource(repo.getAirlines()){list ->
-                   airlineListFilter=list
-                   airlineList.postValue(list)
-               }
+                repo.getAirlines().let { list ->
+                    airlineListFilter=list
+                    airlineList.postValue(list)
+                }
             }
     }
 
@@ -29,9 +30,7 @@ class AirLineViewModel  @Inject constructor(val repo: ILocalRepo): ViewModel(){
     fun filter(query : String ){
         CoroutineScope(Dispatchers.IO + coroutineExceptionHandler ).launch {
             airlineList
-                .postValue(airlineListFilter.filter { e -> e.name?.startsWith(query, true) ?: false
-                        || e.country?.startsWith(query, true) ?: false
-                        || e.id.startsWith(query,true) })
+                .postValue(airlineListFilter.filter { e -> e.name?.startsWith(query.trim(), true) ?: false }.map { e->e.also { e.textHighlight = query } })
 
         }
     }
@@ -43,7 +42,7 @@ class AirLineViewModel  @Inject constructor(val repo: ILocalRepo): ViewModel(){
         }
     }
 
-    val coroutineExceptionHandler= CoroutineExceptionHandler{ context , thro ->
+    private val coroutineExceptionHandler= CoroutineExceptionHandler{ context, thro ->
 
     }
 
