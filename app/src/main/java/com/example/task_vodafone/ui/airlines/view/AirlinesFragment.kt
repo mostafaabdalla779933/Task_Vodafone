@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.entity.AirLineEntity
 import com.example.task_vodafone.R
@@ -16,7 +17,8 @@ import com.example.task_vodafone.databinding.FragmentAirlinesBinding
 import com.example.task_vodafone.ui.MainActivity
 import com.example.task_vodafone.ui.airlines.AirLineViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -32,7 +34,7 @@ class AirlinesFragment : Fragment() ,Communicate{
     ): View {
 
         binding = FragmentAirlinesBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(this)[AirLineViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[AirLineViewModel::class.java]
 
         myAdapter = AirLineAdapte{
             val bundle = bundleOf("name" to it.name,
@@ -46,13 +48,14 @@ class AirlinesFragment : Fragment() ,Communicate{
         binding.rv.apply {
             adapter =myAdapter
         }
-        viewModel.getAirLines()
+        if (viewModel.airlineListFilter.isEmpty())
+             viewModel.getAirLines()
 
-        viewModel.airlineList.observe(viewLifecycleOwner){
-            myAdapter.submitList(it)
-            myAdapter.notifyDataSetChanged()
-
+        lifecycleScope.launch {
+            viewModel.airlineList.collect { myAdapter.submitList(it) }
         }
+
+
         addListener()
 
 
