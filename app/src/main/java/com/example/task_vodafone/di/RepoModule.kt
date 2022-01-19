@@ -10,26 +10,22 @@ import com.example.task_vodafone.repo.RemoteRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 @Module
 class RepoModule {
-
-
         @Provides
-        @Singleton
-        fun provideLocalRepo(airlLineDao: AirlLineDao,shared : SharedPreferences): ILocalRepo {
-            return LocalRepo(airlLineDao,shared)
+        @ViewModelScoped
+        fun provideLocalRepo(airLineDao: AirlLineDao, shared : SharedPreferences): ILocalRepo {
+            return LocalRepo(airLineDao,shared)
         }
 
         @Provides
-        @Singleton
+        @ViewModelScoped
         fun provideRemoteRepo(networkManager: INetworkManager): IRemoteRepo {
             return RemoteRepo(networkManager)
         }
-
-
 }

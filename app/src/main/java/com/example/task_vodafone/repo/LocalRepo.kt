@@ -22,7 +22,7 @@ class LocalRepo @Inject constructor(val airlLineDao : AirlLineDao,val shared : S
 
 
     override fun putCached() {
-        shared.edit().putBoolean("cached",true).commit()
+        shared.edit().putBoolean("cached",true).apply()
     }
 
     override fun getCached(): Boolean = shared.getBoolean("cached",false)
