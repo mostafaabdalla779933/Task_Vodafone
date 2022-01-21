@@ -41,6 +41,7 @@ class AddBottomSheet : BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return BottomSheetDialog(requireContext(), theme).apply {
+            window?.setBackgroundDrawableResource(R.drawable.transparent)
             behavior.isFitToContents = false
             behavior.expandedOffset = 56.dp
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
