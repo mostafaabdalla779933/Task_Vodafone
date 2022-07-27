@@ -1,17 +1,23 @@
 package com.example.task_vodafone.ui.splash
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.task_vodafone.FakeLocalRepo
-import com.example.task_vodafone.FakeRemoteRepo
-
+import com.example.task_vodafone.DummyData
+import com.example.task_vodafone.repo.ILocalRepo
+import com.example.task_vodafone.repo.IRemoteRepo
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnitRunner
+import retrofit2.Response
 
 
-//@RunWith(AndroidJUnit4::class)
+@RunWith(MockitoJUnitRunner::class)
 class SplashViewModelTest{
 
     @get:Rule
@@ -19,21 +25,27 @@ class SplashViewModelTest{
 
     private lateinit var viewModel : SplashViewModel
 
+    @Mock
+    lateinit var localRepo : ILocalRepo
+
+    @Mock
+    lateinit var remoteRepo : IRemoteRepo
 
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Before
-    fun setup(){
-
-        viewModel = SplashViewModel(FakeRemoteRepo(),FakeLocalRepo())
+    fun setup()= runBlocking {
+        Mockito.`when`(remoteRepo.getAirLines()).thenReturn(Response.success(DummyData.listOfAirlinesModel))
+        Mockito.`when`(localRepo.getCached()).thenReturn(false)
+        viewModel = SplashViewModel(remoteRepo,localRepo, TestCoroutineDispatcher())
     }
 
     @Test
-    fun `test get airline post datacached true`(){
+    fun `test get airline post data cached true`(){
 
         viewModel.getAirLines()
 
         viewModel.dataCached.observeForever{
-
             assert(it)
         }
 
@@ -43,11 +55,7 @@ class SplashViewModelTest{
     fun `test handle error take code 200 post value success`(){
         viewModel.handleError(200)
         viewModel.stateLiveData.observeForever{
-
             assert(it.equals("connection success"))
-
         }
     }
-
-
 }

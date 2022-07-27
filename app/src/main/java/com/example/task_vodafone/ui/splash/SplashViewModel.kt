@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.entity.AirLineEntity
 import com.example.network.model.AirLineModel
+import com.example.task_vodafone.di.IoDispatcher
 import com.example.task_vodafone.repo.ILocalRepo
 import com.example.task_vodafone.repo.IRemoteRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +13,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class SplashViewModel @Inject constructor(private val remoteRepo: IRemoteRepo, private val localRepo : ILocalRepo): ViewModel() {
+class SplashViewModel @Inject constructor(private val remoteRepo: IRemoteRepo, private val localRepo : ILocalRepo,@IoDispatcher val ioDispatcher: CoroutineDispatcher): ViewModel() {
 
     var stateLiveData =  MutableLiveData<String?>()
     var errorLineLiveData = MutableLiveData<Boolean>()
@@ -21,7 +22,7 @@ class SplashViewModel @Inject constructor(private val remoteRepo: IRemoteRepo, p
 
     // call api and call function to cache the response
     fun getAirLines(){
-        job =  CoroutineScope(Dispatchers.IO + coroutineExceptionHandler).launch {
+        job =  CoroutineScope(ioDispatcher+ coroutineExceptionHandler).launch {
                 if(!localRepo.getCached()) {
                     val response = remoteRepo.getAirLines()
                     handleError(response.code())

@@ -34,7 +34,7 @@ class AirlinesFragment : Fragment() ,Communicate{
     ): View {
 
         binding = FragmentAirlinesBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(requireActivity())[AirLineViewModel::class.java]
+        viewModel = ViewModelProvider(this)[AirLineViewModel::class.java]
 
         myAdapter = AirLineAdapte{
             val bundle = bundleOf("name" to it.name,
@@ -67,13 +67,16 @@ class AirlinesFragment : Fragment() ,Communicate{
         binding.etSearch.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                viewModel.filter(s.toString())
+                viewModel.filter(s.toString().trim())
             }
             override fun afterTextChanged(s: Editable?) {}
         })
 
+
         (requireActivity() as MainActivity).binding.faBtn.setOnClickListener {
-            AddBottomSheet().show(childFragmentManager, "tag")
+            try {
+                AddBottomSheet().show(childFragmentManager, "tag")
+            }catch (e:Exception){ }
         }
 
     }

@@ -49,5 +49,18 @@ data class AirLineEntity(
             this.id == other.id && this.textHighlight == other.textHighlight && this.name == other.name
         else
             false
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + (established?.hashCode() ?: 0)
+        result = 31 * result + (country?.hashCode() ?: 0)
+        result = 31 * result + (website?.hashCode() ?: 0)
+        result = 31 * result + (name?.hashCode() ?: 0)
+        result = 31 * result + (headQuaters?.hashCode() ?: 0)
+        result = 31 * result + (logo?.hashCode() ?: 0)
+        result = 31 * result + (slogan?.hashCode() ?: 0)
+        result = 31 * result + (createdDate?.hashCode() ?: 0)
+        result = 31 * result + textHighlight.hashCode()
+        return result
+    }
 
 }
