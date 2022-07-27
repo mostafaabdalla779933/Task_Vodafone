@@ -2,8 +2,6 @@ package com.example.task_vodafone
 
 import android.content.Context
 import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.doReturn
-import com.nhaarman.mockitokotlin2.mock
 import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before

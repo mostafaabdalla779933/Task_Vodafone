@@ -7,6 +7,7 @@ import com.example.task_vodafone.repo.IRemoteRepo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -42,20 +43,17 @@ class SplashViewModelTest{
 
     @Test
     fun `test get airline post data cached true`(){
-
         viewModel.getAirLines()
-
         viewModel.dataCached.observeForever{
-            assert(it)
+            assertEquals(it,true)
         }
-
     }
 
     @Test
     fun `test handle error take code 200 post value success`(){
         viewModel.handleError(200)
         viewModel.stateLiveData.observeForever{
-            assert(it.equals("connection success"))
+            assertEquals(it,"connection success")
         }
     }
 }
