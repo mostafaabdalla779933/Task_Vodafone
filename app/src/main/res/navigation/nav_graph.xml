@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/detialsFragment"
-        android:name="com.example.task_vodafone.ui.detials.DetialsFragment"
+        android:name="com.example.task_vodafone.ui.detials.DetailsFragment"
         android:label="fragment_detials"
         tools:layout="@layout/fragment_detials" />
 

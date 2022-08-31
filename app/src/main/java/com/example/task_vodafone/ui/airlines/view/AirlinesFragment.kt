@@ -1,5 +1,6 @@
 package com.example.task_vodafone.ui.airlines.view
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -26,7 +28,7 @@ class AirlinesFragment : Fragment() ,Communicate{
 
     lateinit var binding: FragmentAirlinesBinding
     lateinit var viewModel: AirLineViewModel
-    lateinit var myAdapter : AirLineAdapte
+    lateinit var myAdapter : AirLineAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,14 +38,17 @@ class AirlinesFragment : Fragment() ,Communicate{
         binding = FragmentAirlinesBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this)[AirLineViewModel::class.java]
 
-        myAdapter = AirLineAdapte{
+        myAdapter = AirLineAdapter{
+
+           // binding.rv.smoothScrollToPosition(100)
+           // return@AirLineAdapter
             val bundle = bundleOf("name" to it.name,
                                         "id"   to it.id,
                                         "slogon" to it.slogan,
                                         "country" to it.country,
                                         "head" to it.headQuaters,
                                         "website" to it.website)
-           findNavController().navigate(R.id.action_airlinesFragment_to_detialsFragment,bundle)
+           findNavController().navigate(R.id.detialsFragment,bundle)
         }
         binding.rv.apply {
             adapter =myAdapter
@@ -60,6 +65,16 @@ class AirlinesFragment : Fragment() ,Communicate{
 
 
         return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<String>("key")?.observe(
+            viewLifecycleOwner) { result ->
+            requireContext().showMessage(result)
+        }
     }
 
     private fun addListener(){
@@ -88,3 +103,5 @@ class AirlinesFragment : Fragment() ,Communicate{
         const val CITY = "city"
     }
 }
+
+fun Context.showMessage(str:String)= Toast.makeText(this,str,Toast.LENGTH_LONG).show()

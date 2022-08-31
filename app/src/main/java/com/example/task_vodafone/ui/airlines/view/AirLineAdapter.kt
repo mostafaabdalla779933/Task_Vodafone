@@ -14,16 +14,18 @@ import com.example.entity.AirLineEntity
 import com.example.task_vodafone.databinding.CountryLayoutBinding
 
 
-class AirLineAdapte( val onclick : (AirLineEntity) -> Unit) : ListAdapter<AirLineEntity, AirLineAdapte.AirLineViewHolder>(
-    Callback
-){
+class AirLineAdapter(val onclick: (AirLineEntity) -> Unit) :
+    ListAdapter<AirLineEntity, AirLineAdapter.AirLineViewHolder>(
+        Callback
+    ) {
 
-   inner class AirLineViewHolder (private val rowView: CountryLayoutBinding) : RecyclerView.ViewHolder(rowView.root) {
-        fun onBind(item:AirLineEntity,position:Int){
-            item.name?.let { str->
-                rowView.tvName.text=str
+    inner class AirLineViewHolder(private val rowView: CountryLayoutBinding) :
+        RecyclerView.ViewHolder(rowView.root) {
+        fun onBind(item: AirLineEntity, position: Int) {
+            item.name?.let { str ->
+                rowView.tvName.text = str
                 if (item.textHighlight.isNotEmpty())
-                    setHighLightedText(rowView.tvName,item.textHighlight)
+                    setHighLightedText(rowView.tvName, item.textHighlight)
             }
             rowView.root.setOnClickListener {
                 if (position + 1 <= currentList.size)
@@ -33,11 +35,17 @@ class AirLineAdapte( val onclick : (AirLineEntity) -> Unit) : ListAdapter<AirLin
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AirLineViewHolder {
-        return AirLineViewHolder(CountryLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return AirLineViewHolder(
+            CountryLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: AirLineViewHolder, position: Int) {
-        holder.onBind(getItem(position),position)
+        holder.onBind(getItem(position), position)
     }
 
 
@@ -46,7 +54,10 @@ class AirLineAdapte( val onclick : (AirLineEntity) -> Unit) : ListAdapter<AirLin
             override fun areItemsTheSame(oldItem: AirLineEntity, newItem: AirLineEntity): Boolean =
                 oldItem.equals(newItem)
 
-            override fun areContentsTheSame(oldItem: AirLineEntity, newItem: AirLineEntity): Boolean =
+            override fun areContentsTheSame(
+                oldItem: AirLineEntity,
+                newItem: AirLineEntity
+            ): Boolean =
                 oldItem.equals(newItem)
         }
     }
@@ -58,10 +69,10 @@ class AirLineAdapte( val onclick : (AirLineEntity) -> Unit) : ListAdapter<AirLin
         wordToSpan.setSpan(
             BackgroundColorSpan(-0x100),
             0,
-            tv.text.indexOf(textToHighlight.last(), 0,true) + 1,
+            tv.text.indexOf(textToHighlight.last(), 0, true) + 1,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        tv.setText(wordToSpan, TextView.BufferType.SPANNABLE)
+        tv.setText(wordToSpan, TextView.BufferType.EDITABLE)
     }
 
 }

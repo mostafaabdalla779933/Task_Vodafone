@@ -41,7 +41,7 @@ class SplashViewModel @Inject constructor(private val remoteRepo: IRemoteRepo, p
     }
 
     // cache the response  in the room
-    private suspend fun cacheAirlines(airlines : List<AirLineModel>?){
+    suspend fun cacheAirlines(airlines : List<AirLineModel>?){
             airlines?.let {
                 val list = AirLineEntity.toEntityList(it)
                 localRepo.cachAirlines(list)

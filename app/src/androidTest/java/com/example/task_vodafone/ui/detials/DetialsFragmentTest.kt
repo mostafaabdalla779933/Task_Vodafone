@@ -34,7 +34,7 @@ class DetialsFragmentTest{
             "head" to "head",
             "website" to "website")
 
-        launchFragmentInContainer<DetialsFragment>(bundle)
+        launchFragmentInContainer<DetailsFragment>(bundle)
         Thread.sleep(3000)
 
         Espresso.onView(ViewMatchers.withText("cairo"))

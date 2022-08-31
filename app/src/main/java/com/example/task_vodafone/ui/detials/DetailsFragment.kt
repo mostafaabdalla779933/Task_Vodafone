@@ -9,12 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.task_vodafone.databinding.FragmentDetialsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
-//@AndroidEntryPoint
-class DetialsFragment : Fragment() {
+
+class DetailsFragment : Fragment() {
 
 
     lateinit var binding : FragmentDetialsBinding
@@ -38,6 +39,10 @@ class DetialsFragment : Fragment() {
 
         binding.btnVisit.setOnClickListener {
 
+            findNavController().previousBackStackEntry?.savedStateHandle?.set("key", "hello from details fragment")
+            findNavController().popBackStack()
+
+            return@setOnClickListener
             try {
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://$url"))
                 startActivity(browserIntent)
